@@ -68,7 +68,7 @@ class Item(models.Model):
     )
 
     updated_at = models.DateTimeField(
-        "дата ипзменения",
+        "дата изменения",
         auto_now=True,
     )
 

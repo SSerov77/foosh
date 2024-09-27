@@ -1,5 +1,6 @@
 import json
 
+from django.db.models import Sum, F
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, JsonResponse
@@ -18,7 +19,6 @@ from cart.models import Cart, CartItem, Order, OrderItem, Status
 from cart.utils import get_client_ip
 from catalog.models import Item
 
-
 __all__ = []
 
 
@@ -34,6 +34,10 @@ class CartView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        cart, _ = Cart.objects.get_or_create(user=self.request.user)
+        total_price = CartItem.objects.filter(cart=cart).aggregate(
+            total=Sum(F('quantity') * F('item__price')))['total'] or 0
+        context["total_price"] = total_price
         context["title"] = "Корзина"
         return context
 

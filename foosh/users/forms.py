@@ -2,7 +2,7 @@ from cities_light.models import City
 from django import forms
 from django.contrib import auth
 from django.forms import widgets
-from django_recaptcha.fields import ReCaptchaField
+# from django_recaptcha.fields import ReCaptchaField
 
 from users.models import CustomUser, School, Student
 
@@ -27,7 +27,7 @@ class CustomAuthForm(auth.forms.AuthenticationForm):
             attrs={"placeholder": "Пароль"},
         ),
     )
-    captcha = ReCaptchaField()
+    # captcha = ReCaptchaField()
 
 
 class CustomPasswordChangeForm(auth.forms.PasswordChangeForm):
@@ -109,7 +109,7 @@ class StudentSignUpForm(StylesFormMixin, CustomUserCreationForm):
     school = forms.ModelChoiceField(
         queryset=School.objects.none(),
         label="Школа",
-        empty_label="Выберите школу",
+        empty_label="Выберите учебное заведение",
         required=True,
         widget=widgets.Select(
             attrs={
@@ -118,7 +118,7 @@ class StudentSignUpForm(StylesFormMixin, CustomUserCreationForm):
         ),
     )
 
-    captcha = ReCaptchaField()
+    # captcha = ReCaptchaField()
 
     class Meta(auth.forms.UserCreationForm.Meta):
         model = CustomUser
@@ -129,7 +129,7 @@ class StudentSignUpForm(StylesFormMixin, CustomUserCreationForm):
             "patronymic",
             "city",
             "school",
-            "captcha",
+            # "captcha",
         )
 
     def __init__(self, *args, **kwargs):
@@ -176,7 +176,7 @@ class SchoolSignUpForm(StylesFormMixin, CustomUserCreationForm):
         ),
     )
 
-    captcha = ReCaptchaField()
+    # captcha = ReCaptchaField()
 
     class Meta(auth.forms.UserCreationForm.Meta):
         model = CustomUser
@@ -184,7 +184,7 @@ class SchoolSignUpForm(StylesFormMixin, CustomUserCreationForm):
             CustomUser.email.field.name,
             "name",
             "city",
-            "captcha",
+            # "captcha",
         )
 
     def save(self):

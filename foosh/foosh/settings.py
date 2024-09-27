@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     "cart.apps.CartConfig",
     "cities_light",
     "sorl.thumbnail",
-    "django_recaptcha",
+    # "django_recaptcha",
 ]
 
 MIDDLEWARE = [
